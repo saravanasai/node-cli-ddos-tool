@@ -8,8 +8,10 @@ let errors = 0,
   errorMessages = [];
 let isFailedRequest;
 
+
 function worker(host, amount, interval) {
   setInterval(() => {
+  
     for (let index = 0; index < amount; index++) {
       fetch(host)
         .catch((err) => {
@@ -23,13 +25,12 @@ function worker(host, amount, interval) {
           }
         })
         .then((e) => {
-          if (e.status === 200) {
-            console.log(`[${green(e.status)}] ${host} - Hitted`);
-          } else {
-            console.log(`[${red(e.status)}] ${host} - Hitted`);
-          }
+          success++;
         });
     }
+
+    console.log(`Errors: [${red(errors)}] Success: [${green(success)}]`)
+
   }, interval);
 }
 
